@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
     res.json(schemes);
   })
   .catch(err => {
+    console.log(err)
     res.status(500).json({ message: 'Failed to get schemes' });
   });
 });
@@ -26,13 +27,13 @@ router.get('/:id', (req, res) => {
     }
   })
   .catch(err => {
+    console.log(err)
     res.status(500).json({ message: 'Failed to get schemes' });
   });
 });
 
 router.get('/:id/steps', (req, res) => {
   const { id } = req.params;
-
   Schemes.findSteps(id)
   .then(steps => {
     if (steps.length) {
@@ -42,6 +43,7 @@ router.get('/:id/steps', (req, res) => {
     }
   })
   .catch(err => {
+    console.log(err)
     res.status(500).json({ message: 'Failed to get steps' });
   });
 });
@@ -54,6 +56,7 @@ router.post('/', (req, res) => {
     res.status(201).json(scheme);
   })
   .catch (err => {
+    console.log(err)
     res.status(500).json({ message: 'Failed to create new scheme' });
   });
 });
@@ -85,7 +88,7 @@ router.put('/:id', (req, res) => {
   Schemes.findById(id)
   .then(scheme => {
     if (scheme) {
-      Schemes.update(changes, id)
+      Schemes.update(id, changes)
       .then(updatedScheme => {
         res.json(updatedScheme);
       });
@@ -94,6 +97,7 @@ router.put('/:id', (req, res) => {
     }
   })
   .catch (err => {
+    console.log(err)
     res.status(500).json({ message: 'Failed to update scheme' });
   });
 });
@@ -110,6 +114,7 @@ router.delete('/:id', (req, res) => {
     }
   })
   .catch(err => {
+    console.log(err)
     res.status(500).json({ message: 'Failed to delete scheme' });
   });
 });
